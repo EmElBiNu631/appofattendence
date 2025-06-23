@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "83777768242",
+    "project_id": "zitaproject3",
+    "storage_bucket": "zitaproject3.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:83777768242:android:b4f0c55e4a14a42fd9e52b",
+        "android_client_info": {
+          "package_name": "com.example.miniproject"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAKwqodccThAgtz6frx-ELlKv1U_o7Huzg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:83777768242:android:d752194a6d9c01e5d9e52b",
+        "android_client_info": {
+          "package_name": "com.example.zitaproject3"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAKwqodccThAgtz6frx-ELlKv1U_o7Huzg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
