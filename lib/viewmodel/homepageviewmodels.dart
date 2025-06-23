@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -5,12 +7,18 @@ import 'package:google_fonts/google_fonts.dart';
 import '../screens/faceverification.dart';
 import '../screens/leaveapplicationview.dart';
 import '../screens/puchedout.dart';
+import '../services/sharedperfrences.dart';
 
 class HomepageViewModel extends ChangeNotifier {
+  String userName = "User";
+
+
+  final uid = FirebaseAuth.instance.currentUser?.uid;
+
+  bool isLoading = true;
 
   bool isCheckedIn = false;
   bool hasPunchedOut =false;
-  String userName = "Emel Binu";
   String role = "Flutter Developer";
   String worklocation = "Location";
 
@@ -18,6 +26,45 @@ class HomepageViewModel extends ChangeNotifier {
   int absence = 2;
   int leaves = 1;
   DateTime? checkInTime;
+  HomepageViewModel() {
+    fetchUserData();
+  }
+
+  Future<void> fetchUserData() async {
+    try {
+      final uid = FirebaseAuth.instance.currentUser?.uid;
+      if (uid == null) return;
+
+      final snapshot = await FirebaseFirestore.instance
+          .collection('Users')
+          .doc(uid)
+          .get();
+
+      if (snapshot.exists) {
+        final data = snapshot.data();
+        userName = data?['name'] ?? 'Users';
+        role = data?['role'] ?? 'Role';
+
+        await SharedPrefsService.saveUserDetails(
+          username: userName,
+          email: data?['email'],
+        );
+      }
+    } catch (e) {
+      debugPrint('Error fetching user data: $e');
+    } finally {
+      isLoading = false;
+      notifyListeners();
+    }
+  }
+
+
+  String get greeting {
+    final hour = DateTime.now().hour;
+    if (hour < 12) return 'Good Morning';
+    if (hour < 17) return 'Good Afternoon';
+    return 'Good Evening';
+  }
 
   void toggleCheckIn(DateTime time) {
     isCheckedIn = true;
@@ -37,6 +84,13 @@ class HomepageViewModel extends ChangeNotifier {
     checkInTime = DateTime.now();
     notifyListeners();
   }
+  DateTime? lastPunchOutTime;
+
+  void updatePunchOutTime(DateTime time) {
+    lastPunchOutTime = time;
+    notifyListeners();
+  }
+
 
   // Future<void> handlePunchOut(BuildContext context) async {
   //   final confirmed = await Navigator.push(
@@ -106,6 +160,8 @@ class HomepageViewModel extends ChangeNotifier {
       MaterialPageRoute(builder: (_) => const LeaveFormView()),
     );
   }
+
+  void punchOutWithLocation(String location) {}
 }
 
 

@@ -17,11 +17,11 @@ class DashboardViewModel extends ChangeNotifier {
     try {
       final user = FirebaseAuth.instance.currentUser;
       if (user != null) {
-        final doc = await FirebaseFirestore.instance.collection('users').doc(user.uid).get();
+        final doc = await FirebaseFirestore.instance.collection('Users').doc(user.uid).get();
         if (doc.exists) {
-          userName = doc.data()?['name'] ?? 'User';
+          userName = doc.data()?['name'] ?? 'Users';
         } else {
-          userName = 'User';
+          userName = 'Users';
         }
       } else {
         userName = 'Guest';
@@ -47,7 +47,7 @@ class DashboardViewModel extends ChangeNotifier {
       if (currentUser != null) {
         final doc = await FirebaseFirestore.instance.collection('Users').doc(currentUser.uid).get();
         if (doc.exists) {
-          userName = doc.data()?['name'] ?? 'User';
+          userName = doc.data()?['name'] ?? 'Users';
           notifyListeners();
         } else {
           userName = 'User';

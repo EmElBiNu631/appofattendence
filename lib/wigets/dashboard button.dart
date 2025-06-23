@@ -1,14 +1,17 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class DashboardButton extends StatelessWidget {
   final IconData icon;
   final String label;
+  final VoidCallback? onTap;
 
   const DashboardButton({
     Key? key,
     required this.icon,
     required this.label,
+    this.onTap,
   }) : super(key: key);
 
   @override
@@ -19,29 +22,27 @@ class DashboardButton extends StatelessWidget {
         elevation: 3,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         child: InkWell(
-          onTap: () {}, // Add navigation or action
+          onTap: onTap,
           borderRadius: BorderRadius.circular(16),
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 12),
-            // reduced from 20
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  padding: const EdgeInsets.all(10), // reduced padding
+                  padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
                     color: Colors.blue.shade50,
                     shape: BoxShape.circle,
                   ),
-                  child: Icon(
-                      icon, color: Colors.blue, size: 22), // slightly smaller
+                  child: Icon(icon, color: Colors.blue, size: 22),
                 ),
                 const SizedBox(height: 6),
                 Text(
                   label,
                   textAlign: TextAlign.center,
                   style: GoogleFonts.poppins(
-                    fontSize: 12, // slightly smaller font
+                    fontSize: 12,
                     fontWeight: FontWeight.w500,
                   ),
                 ),

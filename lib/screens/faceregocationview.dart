@@ -1,24 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:miniproject/screens/homepage.dart';
 import 'package:miniproject/screens/profile.dart';
-import 'package:miniproject/screens/puchedout.dart';
 import 'package:miniproject/screens/punchedin%20sucess.dart';
-import 'package:miniproject/viewmodel/ProfilepageModel.dart';
+import 'package:miniproject/screens/puchedout.dart';
 import 'package:provider/provider.dart';
+import '../viewmodel/ProfilepageModel.dart';
 
 class FaceConfirmationView extends StatefulWidget {
   final bool isPunchingIn;
   final VoidCallback onConfirmed;
 
-  const FaceConfirmationView({super.key, required this.isPunchingIn, required this.onConfirmed});
+  const FaceConfirmationView({
+    super.key,
+    required this.isPunchingIn,
+    required this.onConfirmed,
+  });
 
   @override
   State<FaceConfirmationView> createState() => _FaceConfirmationViewState();
 }
 
 class _FaceConfirmationViewState extends State<FaceConfirmationView> {
-  final String checkinMessage = "Checked in at ${DateFormat('hh:mm a').format(DateTime.now())}";
-  final String checkoutMessage = "Checked out at ${DateFormat('hh:mm a').format(DateTime.now())}";
   bool isProcessing = false;
 
   @override
@@ -76,36 +79,41 @@ class _FaceConfirmationViewState extends State<FaceConfirmationView> {
                               : () {
                             setState(() => isProcessing = true);
 
-                            final now = TimeOfDay.now();
-                            final formattedTime = now.format(context);
+                            final now = DateTime.now();
+                            final formattedTime =
+                            DateFormat('hh:mm a').format(now);
+                            final checkinMessage =
+                                "Checked in at $formattedTime";
+                            final checkoutMessage =
+                                "Checked out at $formattedTime";
 
+                            // Perform punch action
                             if (widget.isPunchingIn) {
                               vm.punchIn();
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (_) => PunchInSuccessView(time: formattedTime),
-                                ),
-                              ).then((_) {
-                                Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(builder: (_) =>  DashboardView(checkinMessage: checkinMessage, checkoutMessage: checkoutMessage)),
-                                );
-                              });
                             } else {
                               vm.punchOut();
+                            }
+
+                            // Decide which success screen to show
+                            final Widget successScreen = widget.isPunchingIn
+                                ? PunchInSuccessView(time: formattedTime)
+                                : PunchedOutSuccessView(time: formattedTime);
+
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (_) => successScreen),
+                            ).then((_) {
                               Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (_) => PunchedOutSuccessView(time: formattedTime),
+                                  builder: (_) => DashboardView(
+                                    checkinMessage: checkinMessage,
+                                    checkoutMessage: checkoutMessage,
+                                  ),
                                 ),
-                              ).then((_) {
-                                Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(builder: (_) =>  DashboardView(checkinMessage: checkinMessage, checkoutMessage: checkoutMessage)),
-                                );
-                              });
-                            }
+                              );
+                            });
                           },
                           style: ElevatedButton.styleFrom(
                             shape: const CircleBorder(),

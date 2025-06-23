@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
+
 import '../viewmodel/homepageviewmodels.dart';
-import '../wigets/commonwidgets.dart';
+import '../wigets/puchedin.dart';
 import 'faceverification.dart';
-import 'leaveapplicationview.dart';
+import 'leavedashboardview.dart';
 
 class HomepageView extends StatelessWidget {
   const HomepageView({super.key});
@@ -13,13 +14,20 @@ class HomepageView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) => HomepageViewModel(),
-      child: const HomepageContent(),
+      child: HomepageContent(checkinMessage: '', checkoutMessage: ''),
     );
   }
 }
 
 class HomepageContent extends StatefulWidget {
-  const HomepageContent({super.key});
+  final String checkinMessage;
+  final String checkoutMessage;
+
+  const HomepageContent({
+    super.key,
+    required this.checkinMessage,
+    required this.checkoutMessage,
+  });
 
   @override
   State<HomepageContent> createState() => _HomepageContentState();
@@ -32,8 +40,14 @@ class _HomepageContentState extends State<HomepageContent> {
   Widget build(BuildContext context) {
     final vm = Provider.of<HomepageViewModel>(context);
 
+    if (vm.isLoading) {
+      return const Scaffold(
+        body: Center(child: CircularProgressIndicator()),
+      );
+    }
+
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.grey.shade100,
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: Colors.blueAccent,
         unselectedItemColor: Colors.grey,
@@ -54,23 +68,21 @@ class _HomepageContentState extends State<HomepageContent> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildTopHeader(),
+              _buildTopHeader(vm),
+              _buildGreetingCard(vm),
               const SizedBox(height: 20),
-              const Text(
-                "Good Morning,\nEmel Binu",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-              ),
-              const SizedBox(height: 12),
-              Text(
-                vm.isCheckedIn ? "" : "You haven't Punch-in yet",
-                style: const TextStyle(color: Colors.red, fontWeight: FontWeight.w500),
-              ),
+              if (!vm.isCheckedIn)
+                const Text(
+                  "You haven't Punch-in yet",
+                  style: TextStyle(color: Colors.red, fontWeight: FontWeight.w500),
+                ),
               const SizedBox(height: 16),
               _buildPunchButtons(vm),
               const SizedBox(height: 24),
-              _buildOverviewCards(),
-              const SizedBox(height: 12),
+              _buildOverviewCards(vm),
+              const SizedBox(height: 24),
               _buildDashboardGrid(context, vm),
+              const SizedBox(height: 20),
             ],
           ),
         ),
@@ -78,47 +90,159 @@ class _HomepageContentState extends State<HomepageContent> {
     );
   }
 
-  Widget _buildTopHeader() {
-    return Row(
-      children: [
-        Container(
-          padding: const EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            color: Colors.green.shade200,
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Row(
-            children: [
-              const CircleAvatar(
-                radius: 24,
-                backgroundImage: AssetImage("assets/images/profile1.jpg"),
-              ),
-              const SizedBox(width: 8),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  Text("Emel Binu", style: TextStyle(fontWeight: FontWeight.bold)),
-                  Text("Full-stack Developer", style: TextStyle(fontSize: 12, color: Colors.white)),
-                ],
-              ),
-            ],
-          ),
+  Widget _buildTopHeader(HomepageViewModel vm) {
+    return Container(
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          colors: [Color(0xFF0F9D58), Color(0xFF1E88E5)],
+          begin: Alignment.centerLeft,
+          end: Alignment.centerRight,
         ),
-        const Spacer(),
-        Image.asset("assets/images/companylogo.png", height: 40),
-        const SizedBox(width: 10),
-        const Icon(Icons.notifications_none, color: Colors.blueAccent, size: 30),
-      ],
+      ),
+      padding: const EdgeInsets.all(16),
+      child: Row(
+        children: [
+          const CircleAvatar(
+            radius: 26,
+            backgroundImage: AssetImage("assets/images/profile1.jpg"),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  vm.userName.isEmpty ? 'Loading...' : vm.userName,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  vm.role.isEmpty ? 'Loading...' : vm.role,
+                  style: const TextStyle(
+                    fontSize: 13,
+                    color: Colors.white70,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Image.asset("assets/images/companylogo.png", height: 36),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildGreetingCard(HomepageViewModel vm) {
+    return Container(
+      width: double.infinity,
+      margin: const EdgeInsets.only(top: 12),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+      decoration: BoxDecoration(
+        color: Colors.blue.shade50,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Text(
+        "${vm.greeting},\n${vm.userName.isEmpty ? 'User' : vm.userName} 👋",
+        style: const TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w600,
+          color: Colors.blueAccent,
+        ),
+      ),
     );
   }
 
   Widget _buildPunchButtons(HomepageViewModel vm) {
-    return Row(
+    return vm.isCheckedIn
+        ? Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: const Color(0xFFF5FAFF),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Colors.grey.shade300),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(widget.checkinMessage.isNotEmpty
+              ? widget.checkinMessage
+              : "Checked in at ${DateFormat('hh:mm a').format(DateTime.now())}"),
+
+          const SizedBox(height: 10),
+
+          if (vm.lastPunchOutTime != null)
+            Text(
+              "Punched out at ${DateFormat('hh:mm a').format(vm.lastPunchOutTime!)}",
+              style: const TextStyle(
+                color: Colors.redAccent,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+
+          const SizedBox(height: 10),
+          Row(
+            children: const [
+              Icon(Icons.location_on, color: Colors.redAccent, size: 20),
+              SizedBox(width: 6),
+              Text("Location/IP (for remote attendance)", style: TextStyle(color: Colors.black54)),
+            ],
+          ),
+          const SizedBox(height: 14),
+          Row(
+            children: [
+              Expanded(
+                child: ElevatedButton(
+                  onPressed: null,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.grey.shade300,
+                    foregroundColor: Colors.black54,
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                  ),
+                  child: const Text('Punched-In'),
+                ),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: ElevatedButton(
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (_) => PunchInDialog(
+                        onSelect: (location) {
+                          Navigator.pop(context);
+                          vm.punchOutWithLocation(location);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => FaceVerificationView(isPunchingIn: false),
+                            ),
+                          );
+                        },
+                      ),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blue,
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                  ),
+                  child: const Text("Punch Out"),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    )
+        : Row(
       children: [
         Expanded(
           child: ElevatedButton(
-            onPressed: !vm.isCheckedIn
-                ? () {
+            onPressed: () {
               showDialog(
                 context: context,
                 builder: (_) => PunchInDialog(
@@ -134,8 +258,7 @@ class _HomepageContentState extends State<HomepageContent> {
                   },
                 ),
               );
-            }
-                : null,
+            },
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.blueAccent,
               padding: const EdgeInsets.symmetric(vertical: 14),
@@ -158,7 +281,7 @@ class _HomepageContentState extends State<HomepageContent> {
     );
   }
 
-  Widget _buildOverviewCards() {
+  Widget _buildOverviewCards(HomepageViewModel vm) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -166,9 +289,9 @@ class _HomepageContentState extends State<HomepageContent> {
         const SizedBox(height: 10),
         Row(
           children: [
-            _overviewBox("Presence", "20", Colors.green),
-            _overviewBox("Absence", "03", Colors.red),
-            _overviewBox("Leaves", "02", Colors.orange),
+            _overviewBox("Presence", "${vm.presence}", Colors.green),
+            _overviewBox("Absence", "${vm.absence}", Colors.red),
+            _overviewBox("Leaves", "${vm.leaves}", Colors.orange),
           ],
         ),
       ],
@@ -210,7 +333,14 @@ class _HomepageContentState extends State<HomepageContent> {
           mainAxisSpacing: 10,
           children: [
             _dashboardItem(Icons.calendar_month, "Attendance", Colors.green, () {}),
-            _dashboardItem(Icons.logout, "Leaves", Colors.orange, () => vm.navigateToLeaves(context)),
+            _dashboardItem(Icons.logout, "Leaves", Colors.orange, () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => LeaveDashboardView(cameFromDashboard: false),
+                ),
+              );
+            }),
             _dashboardItem(Icons.info_outline, "Leave Status", Colors.purple, () {}),
             _dashboardItem(Icons.event_note, "Holiday List", Colors.indigo, () {}),
             _dashboardItem(Icons.receipt_long, "Payslip", Colors.teal, () {}),

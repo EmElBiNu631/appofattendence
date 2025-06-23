@@ -3,15 +3,17 @@ import 'package:intl/intl.dart';
 import 'package:miniproject/screens/profile.dart';
 import 'package:provider/provider.dart';
 import '../viewmodel/LeaveDashboardViewModel.dart';
+import 'homepage.dart';
 import 'leaveapplicationview.dart'; // Request Leave Form
 
 class LeaveDashboardView extends StatefulWidget {
-  const LeaveDashboardView({super.key});
+  final bool cameFromDashboard;
+
+  const LeaveDashboardView({Key? key, required this.cameFromDashboard}) : super(key: key);
 
   @override
   State<LeaveDashboardView> createState() => _LeaveDashboardViewState();
 }
-
 
 class _LeaveDashboardViewState extends State<LeaveDashboardView> with SingleTickerProviderStateMixin {
   late TabController _tabController;
@@ -44,21 +46,28 @@ class _LeaveDashboardViewState extends State<LeaveDashboardView> with SingleTick
           titleSpacing: 0,
           leading: InkWell(
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => DashboardView(
-                    checkinMessage: checkinMessage,
-                    checkoutMessage: checkoutMessage,
+              if (widget.cameFromDashboard) {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => DashboardView(),
                   ),
-                ),
-              );
+                );
+              } else {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (_) => HomepageView()),
+                );
+              }
             },
             child: Padding(
               padding: const EdgeInsets.all(12.0),
               child: Image.asset("assets/images/companylogo.png"),
             ),
           ),
+
+
+
 
           title: Padding(
             padding: const EdgeInsets.symmetric(vertical: 12),
@@ -79,7 +88,7 @@ class _LeaveDashboardViewState extends State<LeaveDashboardView> with SingleTick
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 12),
               child: CircleAvatar(
-                backgroundImage: AssetImage("assets/images/profile.jpg"),
+                backgroundImage: AssetImage("assets/images/profile1.jpg"),
               ),
             ),
           ],

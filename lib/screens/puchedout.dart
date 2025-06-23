@@ -14,14 +14,18 @@ class _PunchedOutSuccessViewState extends State<PunchedOutSuccessView> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(seconds: 2), () {
+    Future.delayed( Duration(seconds: 2), () {
       Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (_) =>  HomepageView()),
+        MaterialPageRoute(
+          builder: (_) =>  HomepageView(),
+        ),
             (route) => false,
       );
     });
   }
+
+
 
   @override
   Widget build(BuildContext context) {
