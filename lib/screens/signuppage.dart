@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../constants/appcolor.dart';
 import '../utils/validator.dart';
 import '../viewmodel/signupviewmodels.dart';
 import 'loginpage.dart';
@@ -22,7 +23,6 @@ class _SignuppageState extends State<Signuppage> {
 
   @override
   void dispose() {
-    // Dispose controllers to prevent memory leaks
     viewModel.nameController.dispose();
     viewModel.emailController.dispose();
     viewModel.mobileController.dispose();
@@ -49,8 +49,8 @@ class _SignuppageState extends State<Signuppage> {
   Widget _buildBackground() {
     return Stack(
       children: [
-        Positioned(top: -80, left: -100, child: _circle(Colors.blue)),
-        Positioned(bottom: -80, right: -100, child: _circle(Colors.greenAccent)),
+        Positioned(top: -80, left: -100, child: _circle(AppColors.primary)),
+        Positioned(bottom: -80, right: -100, child: _circle(AppColors.greenaccent)),
       ],
     );
   }
@@ -78,7 +78,7 @@ class _SignuppageState extends State<Signuppage> {
             children: [
               const Text('ZiyaAttend', style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
               const SizedBox(height: 8),
-              const Text('Create An Account', style: TextStyle(fontSize: 18, color: Colors.greenAccent)),
+              const Text('Create An Account', style: TextStyle(fontSize: 18, color: AppColors.greenaccent)),
               const SizedBox(height: 32),
               _buildTextField(viewModel.nameController, 'Name', Validators.validateName),
               _buildTextField(viewModel.emailController, 'Email', Validators.validateEmail, inputType: TextInputType.emailAddress),
@@ -138,7 +138,7 @@ class _SignuppageState extends State<Signuppage> {
               confirmPassword: viewModel.confirmPasswordController.text.trim(),
             );
             if (error == null) {
-              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Signup successful')));
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Signup successful',),backgroundColor: AppColors.success,));
               Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => LoginPage()));
             } else {
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(error)));
@@ -146,10 +146,10 @@ class _SignuppageState extends State<Signuppage> {
           }
         },
         style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.blue,
+          backgroundColor: AppColors.primary,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         ),
-        child: const Text('Signup', style: TextStyle(color: Colors.white, fontSize: 16)),
+        child: const Text('Signup', style: TextStyle(color: AppColors.white, fontSize: 16)),
       ),
     );
   }

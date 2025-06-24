@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../constants/appcolor.dart';
 import 'homepage.dart';
 
 class PunchedOutSuccessView extends StatefulWidget {
@@ -33,7 +34,7 @@ class _PunchedOutSuccessViewState extends State<PunchedOutSuccessView> {
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            colors: [Colors.white, Colors.red],
+            colors: [AppColors.white, AppColors.danger],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
@@ -44,14 +45,14 @@ class _PunchedOutSuccessViewState extends State<PunchedOutSuccessView> {
             children: [
               const CircleAvatar(
                 radius: 40,
-                backgroundColor: Colors.red,
-                child: Icon(Icons.check, size: 40, color: Colors.white),
+                backgroundColor: AppColors.danger,
+                child: Icon(Icons.check, size: 40, color: AppColors.white),
               ),
               const SizedBox(height: 24),
               Text(
                 'Punched Out Successfully at\n${widget.time}',
                 textAlign: TextAlign.center,
-                style: const TextStyle(fontSize: 16, color: Colors.black87),
+                style: const TextStyle(fontSize: 16, color: AppColors.black),
               ),
             ],
           ),

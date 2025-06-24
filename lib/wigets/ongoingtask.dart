@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:miniproject/constants/appcolor.dart';
 import '../models/taskmodel.dart';
 
 class OngoingTaskCard extends StatelessWidget {
@@ -17,7 +18,7 @@ class OngoingTaskCard extends StatelessWidget {
         Text(
           task.title,
           style: GoogleFonts.poppins(
-            color: Colors.green,
+            color: AppColors.success,
             fontSize: 15,
             fontWeight: FontWeight.w600,
           ),
@@ -37,7 +38,7 @@ class OngoingTaskCard extends StatelessWidget {
             Text(
               isPending ? 'Pending Task' : 'Ongoing Task',
               style: TextStyle(
-                color: isPending ? Colors.orange : Colors.blue,
+                color: isPending ? AppColors.warning :AppColors.primary,
                 fontSize: 13,
                 fontWeight: FontWeight.w500,
               ),
@@ -71,16 +72,16 @@ class OngoingTaskCard extends StatelessWidget {
               style: GoogleFonts.poppins(
                 fontWeight: FontWeight.w500,
                 color: task.priority == TaskPriority.high
-                    ? Colors.red
+                    ? AppColors.warning
                     : task.priority == TaskPriority.medium
-                    ? Colors.orange
-                    : Colors.green,
+                    ? AppColors.warning
+                    :AppColors.success
               ),
             ),
             const Spacer(),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blue,
+                backgroundColor: AppColors.primary,
                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               ),
               onPressed: () {
@@ -88,7 +89,7 @@ class OngoingTaskCard extends StatelessWidget {
               },
               child: Text(
                 isPending ? 'Start task' : 'Make as Done',
-                style: GoogleFonts.poppins(color: Colors.white),
+                style: GoogleFonts.poppins(color: AppColors.white),
               ),
             ),
           ],

@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../constants/appcolor.dart';
 import '../viewmodel/leaveviewmodel.dart';
 
 class LeaveFormView extends StatelessWidget {
@@ -142,7 +143,7 @@ class LeaveFormContent extends StatelessWidget {
                 child: ElevatedButton(
                   onPressed: vm.submitForm,
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF06A8F2),
+                    backgroundColor: AppColors.primary,
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
@@ -152,7 +153,7 @@ class LeaveFormContent extends StatelessWidget {
                     "Submit",
                     style: GoogleFonts.poppins(
                       fontSize: 16,
-                      color: Colors.white,
+                      color: AppColors.white,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
@@ -168,7 +169,7 @@ class LeaveFormContent extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.white,
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(

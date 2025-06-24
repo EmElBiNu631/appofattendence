@@ -1,6 +1,8 @@
 
 import 'package:flutter/material.dart';
 
+import '../constants/appcolor.dart';
+
 class PunchInDialog extends StatelessWidget {
   final void Function(String location) onSelect;
 
@@ -9,7 +11,7 @@ class PunchInDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.background,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
@@ -38,7 +40,7 @@ class PunchInDialog extends StatelessWidget {
             const SizedBox(height: 8),
             const Text(
               "Are you working from home or on site today?",
-              style: TextStyle(fontSize: 14, color: Colors.black87),
+              style: TextStyle(fontSize: 14, color: AppColors.black),
             ),
             const SizedBox(height: 24),
             Row(
@@ -50,7 +52,7 @@ class PunchInDialog extends StatelessWidget {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      side: const BorderSide(color: Colors.grey),
+                      side: const BorderSide(color: AppColors.grey),
                     ),
                     onPressed: () => onSelect("On Site"),
                     child: const Text(
@@ -63,7 +65,7 @@ class PunchInDialog extends StatelessWidget {
                 Expanded(
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue,
+                      backgroundColor:AppColors.primary,
                       padding: const EdgeInsets.symmetric(vertical: 14),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
@@ -72,7 +74,7 @@ class PunchInDialog extends StatelessWidget {
                     onPressed: () => onSelect("Work From Home"),
                     child: const Text(
                       "Work From Home",
-                      style: TextStyle(fontSize: 14, color: Colors.white),
+                      style: TextStyle(fontSize: 14, color:AppColors.white),
                     ),
                   ),
                 ),

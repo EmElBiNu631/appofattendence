@@ -1,17 +1,20 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../constants/appcolor.dart';
 
 class DashboardButton extends StatelessWidget {
   final IconData icon;
   final String label;
   final VoidCallback? onTap;
+  final Color color;
 
   const DashboardButton({
     Key? key,
     required this.icon,
     required this.label,
     this.onTap,
+    required this.color,
   }) : super(key: key);
 
   @override
@@ -19,6 +22,7 @@ class DashboardButton extends StatelessWidget {
     return SizedBox(
       height: 110,
       child: Card(
+        color: AppColors.white,
         elevation: 3,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         child: InkWell(
@@ -31,11 +35,11 @@ class DashboardButton extends StatelessWidget {
               children: [
                 Container(
                   padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    color: Colors.blue.shade50,
+                  decoration: const BoxDecoration(
+                    color: AppColors.white,
                     shape: BoxShape.circle,
                   ),
-                  child: Icon(icon, color: Colors.blue, size: 22),
+                  child: Icon(icon, color: color, size: 22),
                 ),
                 const SizedBox(height: 6),
                 Text(

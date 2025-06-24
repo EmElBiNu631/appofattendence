@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:miniproject/screens/profile.dart';
 import 'package:provider/provider.dart';
+import '../constants/appcolor.dart';
 import '../viewmodel/LeaveDashboardViewModel.dart';
 import 'homepage.dart';
 import 'leaveapplicationview.dart'; // Request Leave Form
@@ -38,9 +39,9 @@ class _LeaveDashboardViewState extends State<LeaveDashboardView> with SingleTick
     return ChangeNotifierProvider<LeaveDashboardViewModel>.value(
       value: vm,
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: AppColors.white,
         appBar: AppBar(
-          backgroundColor: Colors.white,
+          backgroundColor: AppColors.white,
           elevation: 0,
           toolbarHeight: 80,
           titleSpacing: 0,
@@ -75,7 +76,7 @@ class _LeaveDashboardViewState extends State<LeaveDashboardView> with SingleTick
               decoration: InputDecoration(
                 hintText: "Search",
                 filled: true,
-                fillColor: Colors.grey[200],
+                fillColor: AppColors.grey200,
                 contentPadding: const EdgeInsets.symmetric(horizontal: 12),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
@@ -102,9 +103,9 @@ class _LeaveDashboardViewState extends State<LeaveDashboardView> with SingleTick
               color: Colors.white,
               child: TabBar(
                 controller: _tabController,
-                indicatorColor: Colors.blue,
-                labelColor: Colors.blue,
-                unselectedLabelColor: Colors.grey,
+                indicatorColor:AppColors.primary,
+                labelColor: AppColors.primary,
+                unselectedLabelColor: AppColors.grey,
                 tabs: const [
                   Tab(text: "Dashboard"),
                   Tab(text: "Request Leave"),
@@ -241,7 +242,7 @@ class _StatCard extends StatelessWidget {
     return SizedBox(
       width: width,
       child: Card(
-        color: Colors.white,
+        color: AppColors.white,
         elevation: 3,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         child: Padding(
@@ -251,9 +252,9 @@ class _StatCard extends StatelessWidget {
             children: [
               Text(value, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
               const SizedBox(height: 8),
-              Text(title, style: const TextStyle(fontSize: 13, color: Colors.black)),
+              Text(title, style: const TextStyle(fontSize: 13, color: AppColors.black)),
               const SizedBox(height: 4),
-              Text(sub, style: const TextStyle(fontSize: 12, color: Colors.grey)),
+              Text(sub, style: const TextStyle(fontSize: 12, color: AppColors.grey)),
             ],
           ),
         ),

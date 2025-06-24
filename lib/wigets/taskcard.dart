@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:miniproject/constants/appcolor.dart';
 import '../models/taskmodel.dart';
 
 class MyTaskCard extends StatelessWidget {
@@ -9,7 +10,6 @@ class MyTaskCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Extended bullet points per task title
     final List<String> descriptionPoints = _getDescriptions(task.title);
 
     return Padding(
@@ -22,7 +22,7 @@ class MyTaskCard extends StatelessWidget {
             style: GoogleFonts.poppins(
               fontSize: 15.5,
               fontWeight: FontWeight.w600,
-              color: Colors.green.shade700,
+              color: AppColors.success,
             ),
           ),
           const SizedBox(height: 4),
@@ -37,7 +37,7 @@ class MyTaskCard extends StatelessWidget {
                     desc,
                     style: GoogleFonts.poppins(
                       fontSize: 13,
-                      color: Colors.grey[700],
+                      color: AppColors.greyshade700,
                       height: 1.6,
                     ),
                   ),
@@ -55,7 +55,7 @@ class MyTaskCard extends StatelessWidget {
                 // TODO: Start task logic
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blue,
+                backgroundColor: AppColors.primary,
                 padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 10),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(6),
@@ -65,7 +65,7 @@ class MyTaskCard extends StatelessWidget {
                 'Start',
                 style: GoogleFonts.poppins(
                   fontSize: 13.5,
-                  color: Colors.white,
+                  color:AppColors.white,
                 ),
               ),
             ),

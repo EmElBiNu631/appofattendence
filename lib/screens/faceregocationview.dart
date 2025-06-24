@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:miniproject/constants/appcolor.dart';
 import 'package:miniproject/screens/homepage.dart';
 import 'package:miniproject/screens/profile.dart';
 import 'package:miniproject/screens/punchedin%20sucess.dart';
@@ -29,7 +30,7 @@ class _FaceConfirmationViewState extends State<FaceConfirmationView> {
     final vm = Provider.of<DashboardViewModel>(context, listen: false);
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.white,
       body: SafeArea(
         child: Stack(
           children: [
@@ -57,7 +58,7 @@ class _FaceConfirmationViewState extends State<FaceConfirmationView> {
                 const Text(
                   "Point your face right at the box,\nthen take a photo",
                   textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.black54),
+                  style: TextStyle(color: AppColors.black54),
                 ),
                 const Spacer(),
                 Padding(
@@ -117,11 +118,11 @@ class _FaceConfirmationViewState extends State<FaceConfirmationView> {
                           },
                           style: ElevatedButton.styleFrom(
                             shape: const CircleBorder(),
-                            backgroundColor: Colors.blue,
+                            backgroundColor: AppColors.blue,
                             padding: const EdgeInsets.all(24),
                             elevation: 6,
                           ),
-                          child: const Icon(Icons.check, color: Colors.white, size: 36),
+                          child: const Icon(Icons.check, color: AppColors.white, size: 36),
                         ),
                       ),
                       IconButton(

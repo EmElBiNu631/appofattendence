@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:miniproject/models/taskmodel.dart';
 
+import '../constants/appcolor.dart';
+
 class TaskTrackerCard extends StatelessWidget {
   final TaskModel task;
 
@@ -29,7 +31,7 @@ class TaskTrackerCard extends StatelessWidget {
                 child: Text(
                   task.title,
                   style: GoogleFonts.poppins(
-                    color: Colors.green,
+                    color:AppColors.success,
                     fontWeight: FontWeight.w600,
                   ),
                   overflow: TextOverflow.ellipsis,
@@ -55,7 +57,7 @@ class TaskTrackerCard extends StatelessWidget {
                   children: [
                     Icon(Icons.circle,
                         size: 10,
-                        color: s == task.status ? Colors.green : Colors.grey),
+                        color: s == task.status ? AppColors.success : AppColors.grey),
                     const SizedBox(width: 4),
                     Text(
                       formatEnum(s),
@@ -85,7 +87,7 @@ class TaskTrackerCard extends StatelessWidget {
                         child: CircularProgressIndicator(
                           value: task.progress / 100,
                           strokeWidth: 4,
-                          color: Colors.green,
+                          color:AppColors.success,
                           backgroundColor: Colors.grey.shade200,
                         ),
                       ),
@@ -105,7 +107,7 @@ class TaskTrackerCard extends StatelessWidget {
                   Text(
                     "2 days remaining",
                     style: GoogleFonts.poppins(
-                        fontSize: 11, color: Colors.orange),
+                        fontSize: 11, color:AppColors.warning),
                   ),
                 ],
               ),
@@ -136,11 +138,11 @@ class TaskTrackerCard extends StatelessWidget {
                     fontSize: 12,
                     color: p == task.priority
                         ? (p == TaskPriority.low
-                        ? Colors.green
+                        ? AppColors.success
                         : p == TaskPriority.medium
-                        ? Colors.orange
-                        : Colors.red)
-                        : Colors.grey,
+                        ? AppColors.warning
+                        : AppColors.danger)
+                        : AppColors.grey,
                     fontWeight: p == task.priority
                         ? FontWeight.w600
                         : FontWeight.normal,
@@ -159,7 +161,7 @@ class TaskTrackerCard extends StatelessWidget {
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Icon(Icons.circle, size: 10, color: Colors.green),
+                  const Icon(Icons.circle, size: 10, color: AppColors.success),
                   const SizedBox(width: 6),
                   Text("Start", style: GoogleFonts.poppins(fontSize: 12)),
                 ],
@@ -167,7 +169,7 @@ class TaskTrackerCard extends StatelessWidget {
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Icon(Icons.circle, size: 10, color: Colors.grey),
+                  const Icon(Icons.circle, size: 10, color: AppColors.grey),
                   const SizedBox(width: 6),
                   Text("Update", style: GoogleFonts.poppins(fontSize: 12)),
                 ],
@@ -175,7 +177,7 @@ class TaskTrackerCard extends StatelessWidget {
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Icon(Icons.circle, size: 10, color: Colors.teal),
+                  const Icon(Icons.circle, size: 10, color: AppColors.info),
                   const SizedBox(width: 6),
                   Text("Complete", style: GoogleFonts.poppins(fontSize: 12)),
                 ],

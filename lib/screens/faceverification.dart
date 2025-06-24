@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:miniproject/constants/appcolor.dart';
 import 'package:miniproject/screens/faceregocationview.dart';
 
 class FaceVerificationView extends StatelessWidget {
@@ -14,7 +15,7 @@ class FaceVerificationView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.white,
       body: SafeArea(
         child: Center(
           child: Padding(
@@ -29,7 +30,7 @@ class FaceVerificationView extends StatelessWidget {
                 const SizedBox(height: 8),
                 const Text(
                   "Please capture your face",
-                  style: TextStyle(fontSize: 14, color: Colors.grey),
+                  style: TextStyle(fontSize: 14, color: AppColors.grey),
                 ),
                 const SizedBox(height: 40),
                 Image.asset(

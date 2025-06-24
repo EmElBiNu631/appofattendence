@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 
+import '../constants/appcolor.dart';
 import '../viewmodel/homepageviewmodels.dart';
 import '../wigets/puchedin.dart';
+import 'attendancecalendarview.dart';
 import 'faceverification.dart';
 import 'leavedashboardview.dart';
 
@@ -49,8 +51,8 @@ class _HomepageContentState extends State<HomepageContent> {
     return Scaffold(
       backgroundColor: Colors.grey.shade100,
       bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: Colors.blueAccent,
-        unselectedItemColor: Colors.grey,
+        selectedItemColor: AppColors.primary,
+        unselectedItemColor: AppColors.grey,
         currentIndex: _currentIndex,
         onTap: (index) {
           setState(() => _currentIndex = index);
@@ -74,7 +76,7 @@ class _HomepageContentState extends State<HomepageContent> {
               if (!vm.isCheckedIn)
                 const Text(
                   "You haven't Punch-in yet",
-                  style: TextStyle(color: Colors.red, fontWeight: FontWeight.w500),
+                  style: TextStyle(color: AppColors.danger, fontWeight: FontWeight.w500),
                 ),
               const SizedBox(height: 16),
               _buildPunchButtons(vm),
@@ -115,17 +117,17 @@ class _HomepageContentState extends State<HomepageContent> {
                   vm.userName.isEmpty ? 'Loading...' : vm.userName,
                   style: const TextStyle(
                     fontSize: 16,
-                    color: Colors.white,
+                    color: AppColors.white,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                Text(
-                  vm.role.isEmpty ? 'Loading...' : vm.role,
+                Text("Flutter Developer",
                   style: const TextStyle(
                     fontSize: 13,
-                    color: Colors.white70,
+                    color: AppColors.white70,
                   ),
                 ),
+
               ],
             ),
           ),
@@ -149,7 +151,7 @@ class _HomepageContentState extends State<HomepageContent> {
         style: const TextStyle(
           fontSize: 16,
           fontWeight: FontWeight.w600,
-          color: Colors.blueAccent,
+          color: AppColors.primary,
         ),
       ),
     );
@@ -161,9 +163,9 @@ class _HomepageContentState extends State<HomepageContent> {
       width: double.infinity,
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: const Color(0xFFF5FAFF),
+        color: AppColors.white,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.grey.shade300),
+        border: Border.all(color: AppColors.grey300),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -178,7 +180,7 @@ class _HomepageContentState extends State<HomepageContent> {
             Text(
               "Punched out at ${DateFormat('hh:mm a').format(vm.lastPunchOutTime!)}",
               style: const TextStyle(
-                color: Colors.redAccent,
+                color: AppColors.redaccent,
                 fontWeight: FontWeight.w600,
               ),
             ),
@@ -186,7 +188,7 @@ class _HomepageContentState extends State<HomepageContent> {
           const SizedBox(height: 10),
           Row(
             children: const [
-              Icon(Icons.location_on, color: Colors.redAccent, size: 20),
+              Icon(Icons.location_on, color:AppColors.redaccent, size: 20),
               SizedBox(width: 6),
               Text("Location/IP (for remote attendance)", style: TextStyle(color: Colors.black54)),
             ],
@@ -198,8 +200,8 @@ class _HomepageContentState extends State<HomepageContent> {
                 child: ElevatedButton(
                   onPressed: null,
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.grey.shade300,
-                    foregroundColor: Colors.black54,
+                    backgroundColor: AppColors.grey300,
+                    foregroundColor: AppColors.black54,
                     padding: const EdgeInsets.symmetric(vertical: 10),
                   ),
                   child: const Text('Punched-In'),
@@ -226,8 +228,8 @@ class _HomepageContentState extends State<HomepageContent> {
                     );
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
-                    foregroundColor: Colors.white,
+                    backgroundColor: AppColors.blue,
+                    foregroundColor: AppColors.white,
                     padding: const EdgeInsets.symmetric(vertical: 10),
                   ),
                   child: const Text("Punch Out"),
@@ -260,10 +262,10 @@ class _HomepageContentState extends State<HomepageContent> {
               );
             },
             style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.blueAccent,
+              backgroundColor: AppColors.primary,
               padding: const EdgeInsets.symmetric(vertical: 14),
             ),
-            child: const Text("Punch In", style: TextStyle(color: Colors.white)),
+            child: const Text("Punch In", style: TextStyle(color: AppColors.white)),
           ),
         ),
         const SizedBox(width: 10),
@@ -271,10 +273,10 @@ class _HomepageContentState extends State<HomepageContent> {
           child: ElevatedButton(
             onPressed: null,
             style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.grey.shade300,
+              backgroundColor: AppColors.grey300,
               padding: const EdgeInsets.symmetric(vertical: 14),
             ),
-            child: const Text("Punch Out", style: TextStyle(color: Colors.black54)),
+            child: const Text("Punch Out", style: TextStyle(color: AppColors.black54)),
           ),
         ),
       ],
@@ -289,9 +291,9 @@ class _HomepageContentState extends State<HomepageContent> {
         const SizedBox(height: 10),
         Row(
           children: [
-            _overviewBox("Presence", "${vm.presence}", Colors.green),
-            _overviewBox("Absence", "${vm.absence}", Colors.red),
-            _overviewBox("Leaves", "${vm.leaves}", Colors.orange),
+            _overviewBox("Presence", "${vm.presence}",AppColors.success),
+            _overviewBox("Absence", "${vm.absence}",AppColors.danger),
+            _overviewBox("Leaves", "${vm.leaves}", AppColors.warning),
           ],
         ),
       ],
@@ -304,8 +306,8 @@ class _HomepageContentState extends State<HomepageContent> {
         margin: const EdgeInsets.symmetric(horizontal: 5),
         padding: const EdgeInsets.all(14),
         decoration: BoxDecoration(
-          color: Colors.white,
-          border: Border.all(color: Colors.grey.shade300),
+          color: AppColors.white,
+          border: Border.all(color: AppColors.greyshade700),
           borderRadius: BorderRadius.circular(12),
         ),
         child: Column(
@@ -332,8 +334,15 @@ class _HomepageContentState extends State<HomepageContent> {
           crossAxisSpacing: 10,
           mainAxisSpacing: 10,
           children: [
-            _dashboardItem(Icons.calendar_month, "Attendance", Colors.green, () {}),
-            _dashboardItem(Icons.logout, "Leaves", Colors.orange, () {
+            _dashboardItem(Icons.calendar_month, "Attendance", AppColors.success, () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) =>  AttendanceCalendarView(),
+                ),
+              );
+            }),
+            _dashboardItem(Icons.logout, "Leaves", AppColors.warning, () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -341,10 +350,10 @@ class _HomepageContentState extends State<HomepageContent> {
                 ),
               );
             }),
-            _dashboardItem(Icons.info_outline, "Leave Status", Colors.purple, () {}),
-            _dashboardItem(Icons.event_note, "Holiday List", Colors.indigo, () {}),
-            _dashboardItem(Icons.receipt_long, "Payslip", Colors.teal, () {}),
-            _dashboardItem(Icons.bar_chart, "Reports", Colors.redAccent, () {}),
+            _dashboardItem(Icons.info_outline, "Leave Status", AppColors.purple, () {}),
+            _dashboardItem(Icons.event_note, "Holiday List", AppColors.primary, () {}),
+            _dashboardItem(Icons.receipt_long, "Payslip", AppColors.info, () {}),
+            _dashboardItem(Icons.bar_chart, "Reports", AppColors.redaccent, () {}),
           ],
         ),
       ],

@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:miniproject/screens/profile.dart';
 import 'package:provider/provider.dart';
 
+import '../constants/appcolor.dart';
 import '../viewmodel/ProfilepageModel.dart';
 
 class PunchInSuccessView extends StatefulWidget {
@@ -51,7 +52,7 @@ class _PunchInSuccessViewState extends State<PunchInSuccessView> {
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            colors: [Colors.white, Color(0xFF98E66D)],
+            colors: [AppColors.white, Color(0xFF98E66D)],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
@@ -62,14 +63,14 @@ class _PunchInSuccessViewState extends State<PunchInSuccessView> {
             children: [
               const CircleAvatar(
                 radius: 40,
-                backgroundColor: Colors.green,
-                child: Icon(Icons.check, size: 40, color: Colors.white),
+                backgroundColor: AppColors.success,
+                child: Icon(Icons.check, size: 40, color: AppColors.white),
               ),
               const SizedBox(height: 24),
               Text(
                 'Punched In Successfully at\n${widget.time}',
                 textAlign: TextAlign.center,
-                style: const TextStyle(fontSize: 16, color: Colors.black87),
+                style: const TextStyle(fontSize: 16, color: AppColors.black),
               ),
             ],
           ),

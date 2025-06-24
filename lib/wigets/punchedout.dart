@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:miniproject/constants/appcolor.dart';
 import 'package:miniproject/screens/profile.dart';
 
 class PunchOutDialog extends StatelessWidget {
@@ -9,7 +10,7 @@ class PunchOutDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.background,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
@@ -38,7 +39,7 @@ class PunchOutDialog extends StatelessWidget {
             const SizedBox(height: 8),
             const Text(
               "Do you want to punch out on site or from home?",
-              style: TextStyle(fontSize: 14, color: Colors.black87),
+              style: TextStyle(fontSize: 14, color: AppColors.black),
             ),
             const SizedBox(height: 24),
             Row(
@@ -50,7 +51,7 @@ class PunchOutDialog extends StatelessWidget {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      side: const BorderSide(color: Colors.grey),
+                      side: const BorderSide(color: AppColors.grey),
                     ),
                     onPressed: () =>{
                       Navigator.push
@@ -72,7 +73,7 @@ class PunchOutDialog extends StatelessWidget {
                 Expanded(
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue,
+                      backgroundColor:AppColors.primary,
                       padding: const EdgeInsets.symmetric(vertical: 14),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
@@ -81,7 +82,7 @@ class PunchOutDialog extends StatelessWidget {
                     onPressed: () => onSelect("Punched-Out"),
                     child: const Text(
                       "Punched-Out",
-                      style: TextStyle(fontSize: 14, color: Colors.white),
+                      style: TextStyle(fontSize: 14, color: AppColors.white),
                     ),
                   ),
                 ),

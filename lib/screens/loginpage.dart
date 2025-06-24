@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:miniproject/constants/appcolor.dart';
 import 'package:miniproject/screens/signuppage.dart';
 import 'package:provider/provider.dart';
 
@@ -74,8 +75,8 @@ class _LoginPageState extends State<LoginPage> {
   Widget _buildBackground() {
     return Stack(
       children: [
-        Positioned(top: -80, left: -100, child: _circle(Colors.blue)),
-        Positioned(bottom: -80, right: -100, child: _circle(Colors.greenAccent)),
+        Positioned(top: -80, left: -100, child: _circle(AppColors.primary)),
+        Positioned(bottom: -80, right: -100, child: _circle(AppColors.greenaccent)),
       ],
     );
   }
@@ -101,7 +102,7 @@ class _LoginPageState extends State<LoginPage> {
             children: [
               const Text('ZiyaAttend', style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
               const SizedBox(height: 8),
-              const Text("Login", style: TextStyle(fontSize: 18, color: Colors.greenAccent)),
+              const Text("Login", style: TextStyle(fontSize: 18, color: AppColors.greenaccent)),
               const SizedBox(height: 16),
               TextFormField(
                 controller: loginVM.emailController,
@@ -141,12 +142,12 @@ class _LoginPageState extends State<LoginPage> {
       child: ElevatedButton(
         onPressed: () => _login(loginVM),
         style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.blue,
+          backgroundColor: AppColors.primary,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         ),
         child: loginVM.isLoading
-            ? const CircularProgressIndicator(color: Colors.white)
-            : const Text("Login", style: TextStyle(color: Colors.white, fontSize: 16)),
+            ? const CircularProgressIndicator(color: AppColors.white)
+            : const Text("Login", style: TextStyle(color: AppColors.white, fontSize: 16)),
       ),
     );
   }

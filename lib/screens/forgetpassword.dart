@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../constants/appcolor.dart';
 import '../utils/validator.dart';
 import '../viewmodel/forgetviewmodel.dart';
 
@@ -69,7 +70,7 @@ class _ForgetpasswordState extends State<Forgetpassword> {
                 child: ElevatedButton(
                   onPressed: _isLoading ? null : _resetPassword,
                   child: _isLoading
-                      ? const CircularProgressIndicator(color: Colors.white)
+                      ? const CircularProgressIndicator(color: AppColors.white)
                       : const Text("Reset Password"),
                 ),
               ),

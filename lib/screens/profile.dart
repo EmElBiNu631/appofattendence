@@ -1,5 +1,6 @@
   import 'package:flutter/material.dart';
   import 'package:google_fonts/google_fonts.dart';
+import 'package:miniproject/constants/appcolor.dart';
   import 'package:provider/provider.dart';
 
   import '../viewmodel/ProfilepageModel.dart';
@@ -11,7 +12,8 @@ import '../wigets/puchedin.dart';
   import '../wigets/punchedout.dart';
   import '../wigets/taskcard.dart';
   import '../wigets/tasktracker.dart';
-  import 'faceverification.dart';
+  import 'attendancecalendarview.dart';
+import 'faceverification.dart';
 import 'leavedashboardview.dart';
 
   class DashboardView extends StatelessWidget {
@@ -39,8 +41,8 @@ import 'leavedashboardview.dart';
                 type: BottomNavigationBarType.fixed,
                 currentIndex: 0,
                 onTap: vm.setTab,
-                selectedItemColor: Colors.blue,
-                unselectedItemColor: Colors.grey,
+                selectedItemColor: AppColors.primary,
+                unselectedItemColor: AppColors.grey,
                 items: const [
                   BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
                   BottomNavigationBarItem(icon: Icon(Icons.history), label: 'History'),
@@ -82,7 +84,7 @@ import 'leavedashboardview.dart';
                                     vm.userName,
                                     style: GoogleFonts.poppins(
                                       fontSize: 15.5,
-                                      color: Colors.white,
+                                      color: AppColors.white,
                                       fontWeight: FontWeight.w600,
                                     ),
                                   ),
@@ -90,7 +92,7 @@ import 'leavedashboardview.dart';
                                     "Full-stack Developer",
                                     style: GoogleFonts.poppins(
                                       fontSize: 13,
-                                      color: Colors.white70,
+                                      color: AppColors.white70,
                                     ),
                                   ),
                                 ],
@@ -200,8 +202,8 @@ import 'leavedashboardview.dart';
                                       },
 
                                       style: ElevatedButton.styleFrom(
-                                        backgroundColor: Colors.blue,
-                                        foregroundColor: Colors.white,
+                                        backgroundColor: AppColors.primary,
+                                        foregroundColor: AppColors.white,
                                         padding: const EdgeInsets.symmetric(vertical: 10),
                                         shape: RoundedRectangleBorder(
                                           borderRadius: BorderRadius.circular(8),
@@ -232,9 +234,9 @@ import 'leavedashboardview.dart';
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: const [
-                          OverviewCard(title: "Presence", count: 20, color: Colors.green),
-                          OverviewCard(title: "Absence", count: 3, color: Colors.red),
-                          OverviewCard(title: "Leaves", count: 2, color: Colors.orange),
+                          OverviewCard(title: "Presence", count: 20, color: AppColors.success),
+                          OverviewCard(title: "Absence", count: 3, color: AppColors.danger),
+                          OverviewCard(title: "Leaves", count: 2, color: AppColors.warning),
                         ],
                       ),
 
@@ -246,8 +248,8 @@ import 'leavedashboardview.dart';
                           isSelected: vm.taskTabs,
                           onPressed: vm.setTaskTab,
                           borderRadius: BorderRadius.circular(12),
-                          selectedColor: Colors.white,
-                          fillColor: Colors.blue,
+                          selectedColor: AppColors.white,
+                          fillColor: AppColors.primary,
                           textStyle: GoogleFonts.poppins(fontWeight: FontWeight.w500),
                           children: const [
                             Padding(
@@ -324,12 +326,24 @@ import 'leavedashboardview.dart';
                         shrinkWrap: true,
                         crossAxisSpacing: 10,
                         mainAxisSpacing: 10,
-                        physics: const NeverScrollableScrollPhysics(),
+                        physics:  NeverScrollableScrollPhysics(),
                         children: [
-                          DashboardButton(icon: Icons.calendar_month, label: "Attendance", onTap: () {  },),
+                          DashboardButton(
+                            icon: Icons.calendar_month,
+                            label: "Attendance",
+                            color: AppColors.success,
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (_) =>  AttendanceCalendarView()),
+                              );
+                            },
+                          ),
+
                           DashboardButton(
                             icon: Icons.logout,
                             label: "Leaves",
+                            color: AppColors.warning,
                             onTap: () {
                               Navigator.push(
                                 context,
@@ -339,10 +353,10 @@ import 'leavedashboardview.dart';
                               );
                             },
                           ),
-                          DashboardButton(icon: Icons.pie_chart, label: "Leave Status", onTap: () {  },),
-                          DashboardButton(icon: Icons.list, label: "Holiday List", onTap: () {  },),
-                          DashboardButton(icon: Icons.receipt, label: "Payslip", onTap: () {  },),
-                          DashboardButton(icon: Icons.bar_chart, label: "Reports", onTap: () {  },),
+                          DashboardButton(icon: Icons.info_outline, label: "Leave Status", onTap: () {  }, color: AppColors.purple,),
+                            DashboardButton(icon: Icons.list, label: "Holiday List", onTap: () {  }, color: AppColors.primary,),
+                          DashboardButton(icon: Icons.event_note, label: "Payslip", onTap: () {  }, color: AppColors.info,),
+                          DashboardButton(icon: Icons.bar_chart, label: "Reports", onTap: () {  }, color: AppColors.warning,),
                         ],
 
                       ),

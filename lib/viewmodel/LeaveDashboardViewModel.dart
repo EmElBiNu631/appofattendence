@@ -7,7 +7,6 @@ class LeaveDashboardViewModel extends ChangeNotifier {
   int teamOnLeave = 2;
 
   void fetchLeaveData() {
-    // Ideally: Fetch from API
     notifyListeners();
   }
 }
